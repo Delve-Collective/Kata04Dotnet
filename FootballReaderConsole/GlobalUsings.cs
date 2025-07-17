@@ -4,6 +4,5 @@ global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
 
-global using FluentAssertions;
-global using WeatherReaderConsole;
-global using FootballReaderConsole;
+global using Parquet.Schema;
+global using Parquet;

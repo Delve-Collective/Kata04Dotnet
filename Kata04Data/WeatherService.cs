@@ -7,43 +7,29 @@ public interface IWeatherService
 
 public class WeatherService : IWeatherService
 {
-    public WeatherService()
-    {
+    private readonly IParquetService _parquetService;
 
+    public WeatherService(IParquetService parquetService)
+    {
+        _parquetService = parquetService;
     }
 
     public async Task<int> RetrieveDayWithSmallestTempSpreadAsync(string parquetPath)
     {
-        var records = await ReadWeatherRecordsAsync(parquetPath);
+        var records = await _parquetService.ReadAsync(
+            parquetPath,
+            row => new WeatherRecord(
+                int.Parse(row["Dy"]?.ToString()?.Replace("*", "").Trim() ?? "0"),
+                float.Parse(row["MxT"]?.ToString()?.Replace("*", "").Trim() ?? "0"),
+                float.Parse(row["MnT"]?.ToString()?.Replace("*", "").Trim() ?? "0")
+            ),
+            "Dy", "MxT", "MnT"
+        );
 
         return records
             .OrderBy(r => Math.Abs(r.MaxTemp - r.MinTemp))
             .First()
             .Day;
-    }
-
-    private async Task<List<WeatherRecord>> ReadWeatherRecordsAsync(string parquetPath)
-    {
-        await using var stream = File.OpenRead(parquetPath);
-        using var reader = await ParquetReader.CreateAsync(stream);
-        var groupReader = reader.OpenRowGroupReader(0);
-        var schema = reader.Schema.GetDataFields();
-
-        var dayField = schema.First(f => f.Name == "Dy");
-        var maxField = schema.First(f => f.Name == "MxT");
-        var minField = schema.First(f => f.Name == "MnT");
-
-        var dyCol = (string[])(await groupReader.ReadColumnAsync(dayField)).Data;
-        var maxCol = (string[])(await groupReader.ReadColumnAsync(maxField)).Data;
-        var minCol = (string[])(await groupReader.ReadColumnAsync(minField)).Data;
-
-        return Enumerable.Range(0, dyCol.Length)
-            .Select(i => new WeatherRecord(
-                int.Parse(dyCol[i].Replace("*", "").Trim()),
-                float.Parse(maxCol[i].Replace("*", "").Trim()),
-                float.Parse(minCol[i].Replace("*", "").Trim())
-            ))
-            .ToList();
     }
 }
 

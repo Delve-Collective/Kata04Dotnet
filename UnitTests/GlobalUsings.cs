@@ -5,3 +5,5 @@ global using System.Text;
 global using System.Threading.Tasks;
 
 global using FluentAssertions;
+global using NSubstitute;
+global using Kata04Data;

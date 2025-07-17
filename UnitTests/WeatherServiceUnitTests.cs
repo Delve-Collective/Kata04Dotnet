@@ -3,7 +3,7 @@
 public class WeatherServiceUnitTests
 {
     [Fact]
-    public async Task ShouldRetrieveDayWithSmallestTempSpread()
+    public async Task ShouldRetrieveDayWithSmallestTempSpreadAsync()
     {
         // Arrange
         var service = new WeatherService();

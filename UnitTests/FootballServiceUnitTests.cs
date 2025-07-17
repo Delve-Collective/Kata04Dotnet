@@ -1,4 +1,6 @@
-﻿namespace UnitTests;
+﻿using Kata04Data;
+
+namespace UnitTests;
 
 public class FootballServiceUnitTests
 {

@@ -5,5 +5,3 @@ global using System.Text;
 global using System.Threading.Tasks;
 
 global using FluentAssertions;
-global using WeatherReaderConsole;
-global using FootballReaderConsole;

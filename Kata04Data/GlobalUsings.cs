@@ -6,3 +6,5 @@ global using System.Threading.Tasks;
 
 global using Parquet.Schema;
 global using Parquet;
+
+global using Kata04Data;

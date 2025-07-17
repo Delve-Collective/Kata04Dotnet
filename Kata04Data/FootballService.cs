@@ -1,6 +1,4 @@
-﻿using Parquet.Schema;
-
-namespace FootballReaderConsole;
+﻿namespace Kata04Data;
 
 public interface IFootballService
 {

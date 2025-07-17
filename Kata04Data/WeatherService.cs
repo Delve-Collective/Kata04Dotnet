@@ -1,4 +1,4 @@
-﻿namespace WeatherReaderConsole;
+﻿namespace Kata04Data;
 
 public interface IWeatherService
 {

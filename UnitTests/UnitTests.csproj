@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kata04Data\Kata04Data.csproj" />
+    <ProjectReference Include="..\WeatherReaderConsole\WeatherReaderConsole.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
